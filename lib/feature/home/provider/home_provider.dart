@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:statckmod_app/repository/repository.dart';
 import 'package:statckmod_app/services/firebase_services.dart';
 
@@ -61,6 +62,22 @@ class HomeProvider extends ChangeNotifier {
           .where((element) =>
               DateTime.parse(element.dueDate).isBefore(DateTime.now()))
           .toList();
+    }
+    if (_dueTask.isNotEmpty) {
+      // Assuming you have a method to show local notifications
+      FlutterLocalNotificationsPlugin().show(
+        0,
+        'Due Task',
+        'You have ${_dueTask.length} task due today',
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            'channel id',
+            'channel name',
+            importance: Importance.max,
+            priority: Priority.high,
+          ),
+        ),
+      );
     }
     notifyListeners();
   }

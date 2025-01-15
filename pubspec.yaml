@@ -43,6 +43,7 @@ dependencies:
   connectivity_plus: ^6.1.2
   provider: ^6.1.2
   intl: ^0.20.1
+  flutter_local_notifications: ^18.0.1
 
 
 
