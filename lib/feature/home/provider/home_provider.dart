@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:statckmod_app/repository/repository.dart';
 import 'package:statckmod_app/services/firebase_services.dart';
 
 import '../../../models/models.dart';
@@ -37,8 +38,8 @@ class HomeProvider extends ChangeNotifier {
   DateTime? get dueDate => _dueDate;
   TaskStatus? get status => _status;
   TaskPriority? get priority => _priority;
+
   void initialize() async {
-    // final repo = Repository();
     final taksRes = await FireColudStoreService().getTasks();
     if (taksRes is Exception) {
       _taskError = taksRes.toString();
@@ -65,16 +66,17 @@ class HomeProvider extends ChangeNotifier {
   }
 
   Future<void> addTask(Task task) async {
-    await FireColudStoreService().addTask(task);
+    final repo = Repository();
+    await repo.addTask(task);
     _tasks.add(task);
     notifyListeners();
   }
 
   Future<void> updateTask(Task task) async {
     final index = _tasks.indexWhere((element) => element.id == task.id);
-
+    final repo = Repository();
     _tasks[index] = task;
-    await FireColudStoreService().updateTask(task);
+    await repo.updateTask(task);
     notifyListeners();
   }
 
@@ -86,8 +88,10 @@ class HomeProvider extends ChangeNotifier {
   void setTaksList({required bool v, required List<Task> tasks}) {
     if (v = true) {
       _selectedTask = tasks;
+      notifyListeners();
     } else {
-      _selectedTask = [];
+      _selectedTask.clear();
+      notifyListeners();
     }
     debugPrint('selected task ${_selectedTask.map((e) => e.toMap())}');
   }
@@ -98,8 +102,13 @@ class HomeProvider extends ChangeNotifier {
   }
 
   void filterTasksByDate(DateTime date) {
-    _selectedTask =
-        _tasks.where((task) => task.dueDate == date.toIso8601String()).toList();
+    _selectedTask = [];
+
+    _selectedTask.addAll(
+      _tasks
+          .where((task) => DateTime.parse(task.dueDate).isBefore(date))
+          .toList(),
+    );
     notifyListeners();
   }
 

@@ -11,6 +11,7 @@ class _AddTaskState extends State<AddTask> {
   final TextEditingController _taskController = TextEditingController();
   final TextEditingController _taskDescriptionController =
       TextEditingController();
+  final TextEditingController _dueDateController = TextEditingController();
   late final HomeProvider provider;
 
   @override
@@ -23,6 +24,7 @@ class _AddTaskState extends State<AddTask> {
   void dispose() {
     _taskController.dispose();
     _taskDescriptionController.dispose();
+    _dueDateController.dispose();
     super.dispose();
   }
 
@@ -71,8 +73,7 @@ class _AddTaskState extends State<AddTask> {
                 keyboardType: TextInputType.text,
               ),
               TextFormField(
-                controller: TextEditingController()
-                  ..text = provider.dueDate.toString().split(' ')[0],
+                controller: _dueDateController,
                 decoration: InputDecoration(
                   hintText: Kstrings.taskDueDate,
                   border: OutlineInputBorder(),
@@ -95,7 +96,7 @@ class _AddTaskState extends State<AddTask> {
                     lastDate: DateTime(2026),
                   );
                   if (date != null) {
-                    _taskController.text =
+                    _dueDateController.text =
                         date.toLocal().toString().split(' ')[0];
                   }
                   provider.setDueDate(date ?? DateTime.now());

@@ -59,9 +59,9 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'Flutter Demo',
               // used a theme package for color theme.
-              theme: FlexThemeData.light(scheme: FlexScheme.blackWhite),
+              theme: FlexThemeData.light(scheme: FlexScheme.bahamaBlue),
               // For dark theme.
-              darkTheme: FlexThemeData.dark(scheme: FlexScheme.blackWhite),
+              darkTheme: FlexThemeData.dark(scheme: FlexScheme.bahamaBlue),
               // Use dark or light theme based on system setting.
 
               themeMode: context.watch<ThemeProvider>().themeMode,

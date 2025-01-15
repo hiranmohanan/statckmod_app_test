@@ -7,7 +7,9 @@ taskTile(
     required bool val}) {
   final provider = Provider.of<HomeProvider>(context, listen: false);
   return CheckboxListTile.adaptive(
-      onChanged: (value) {},
+      onChanged: (value) {
+        provider.selectTask(task);
+      },
       value: val,
       title: Text(task.title),
       subtitle: Column(
@@ -15,15 +17,16 @@ taskTile(
           RichText(
               text: TextSpan(
             text: 'Due Date: ',
-            style: TextStyle(color: Colors.black),
+            style: Theme.of(context).textTheme.bodyMedium,
+            // style: TextStyle(color: Colors.black),
             children: [
               TextSpan(
                 text: task.dueDate,
-                style: TextStyle(color: Colors.grey),
+                // style: TextStyle(color: Colors.grey),
               ),
               TextSpan(
                 text: '\nStatus: ${task.status}',
-                style: TextStyle(color: Colors.black),
+                // style: TextStyle(color: Colors.black),
               ),
               TextSpan(text: '\nPriority ${task.priority}')
             ],

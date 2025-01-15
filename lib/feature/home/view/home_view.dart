@@ -59,6 +59,7 @@ class HomeView extends StatelessWidget {
             provider.initialize();
           },
           child: ListView(
+            padding: EdgeInsets.all(8.0),
             children: [
               Text(
                 Kstrings.dashboard,
@@ -111,7 +112,7 @@ class HomeView extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   Checkbox.adaptive(
-                      value: provider.tasks == provider.completedTask,
+                      value: provider.tasks == provider.selectedTask,
                       onChanged: (v) {
                         provider.setTaksList(v: v!, tasks: provider.tasks);
                       })
@@ -145,12 +146,14 @@ class HomeView extends StatelessWidget {
               ),
               ListView.builder(
                   shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: provider.tasks.length,
                   itemBuilder: (context, index) {
                     return taskTile(
                       task: provider.tasks[index],
                       context: context,
-                      val: false,
+                      val:
+                          provider.selectedTask.contains(provider.tasks[index]),
                     );
                   }),
             ],

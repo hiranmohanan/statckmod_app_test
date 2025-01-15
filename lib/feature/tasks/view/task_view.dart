@@ -48,6 +48,7 @@ class TaskView extends StatelessWidget {
           vSizedBox1,
           ListView.builder(
               shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
               itemCount: taks.length,
               itemBuilder: (context, index) {
                 return taskTile(
