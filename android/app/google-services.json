@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "505833937667",
+    "project_id": "stackmod-d2be6",
+    "storage_bucket": "stackmod-d2be6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505833937667:android:95541acc8516e3ef7ee736",
+        "android_client_info": {
+          "package_name": "com.example.statckmod_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkf8MVbCNYZEPLBXmBicUFWp0PO4B2m5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
