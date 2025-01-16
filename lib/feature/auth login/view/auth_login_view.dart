@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 import 'package:statckmod_app/constants/constants.dart';
 import 'package:statckmod_app/feature/auth%20login/provider/auth_login_provider.dart';
 
@@ -67,84 +68,87 @@ class _AuthLoginViewState extends State<AuthLoginView> {
                 );
               });
             }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(Kstrings.email),
-                appTextFields(
-                  controller: _emailController,
-                  hintText: Kstrings.email,
-                  keyboardType: TextInputType.emailAddress,
-                  icon: Icons.email,
-                  obscureText: false,
-                  onChanged: (value) {
-                    provider.setEmail(value);
-                  },
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return Kstrings.emailIsEmpty;
-                    }
-                    if (!value.contains('@')) {
-                      return Kstrings.emailNotValid;
-                    }
+            return SingleChildScrollView(
+              child: Column(
+                spacing: 10.sp,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(Kstrings.email),
+                  appTextFields(
+                    controller: _emailController,
+                    hintText: Kstrings.email,
+                    keyboardType: TextInputType.emailAddress,
+                    icon: Icons.email,
+                    obscureText: false,
+                    onChanged: (value) {
+                      provider.setEmail(value);
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return Kstrings.emailIsEmpty;
+                      }
+                      if (!value.contains('@')) {
+                        return Kstrings.emailNotValid;
+                      }
 
-                    if (!value.contains('.')) {
-                      return Kstrings.emailNotValid;
-                    }
-                    return null;
-                  },
-                ),
-                Text(Kstrings.password),
-                appPasswordTextFields(
-                  controller: _passwordController,
-                  keyboardType: TextInputType.visiblePassword,
-                  onPressed: () {
-                    provider.setIsObscure();
-                  },
-                  obscureText: provider.isObscure,
-                  onChanged: (value) {
-                    provider.setPassword(value);
-                  },
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                ),
-                CheckboxListTile(
-                  value: provider.isRememberMe,
-                  onChanged: (value) {
-                    provider.setIsRememberMe();
-                  },
-                  title: Text(Kstrings.rememberMe),
-                ),
-                TextButton(
-                  onPressed: () {
-                    provider.forgotPassword();
-                  },
-                  child: Text(Kstrings.forgotPassword),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      _login();
-                    }
-                  },
-                  child: Text(Kstrings.loginButton),
-                ),
-                RichText(
-                    text: TextSpan(
-                  text: Kstrings.dontHaveAccount,
-                  style: TextStyle(color: Colors.black),
-                  children: [
-                    TextSpan(
-                      text: Kstrings.register,
-                      style: TextStyle(color: Colors.blue),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.pushNamed(context, '/signup');
-                        },
-                    ),
-                  ],
-                ))
-              ],
+                      if (!value.contains('.')) {
+                        return Kstrings.emailNotValid;
+                      }
+                      return null;
+                    },
+                  ),
+                  Text(Kstrings.password),
+                  appPasswordTextFields(
+                    controller: _passwordController,
+                    keyboardType: TextInputType.visiblePassword,
+                    onPressed: () {
+                      provider.setIsObscure();
+                    },
+                    obscureText: provider.isObscure,
+                    onChanged: (value) {
+                      provider.setPassword(value);
+                    },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                  CheckboxListTile(
+                    value: provider.isRememberMe,
+                    onChanged: (value) {
+                      provider.setIsRememberMe();
+                    },
+                    title: Text(Kstrings.rememberMe),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      provider.forgotPassword();
+                    },
+                    child: Text(Kstrings.forgotPassword),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        _login();
+                      }
+                    },
+                    child: Text(Kstrings.loginButton),
+                  ),
+                  RichText(
+                      text: TextSpan(
+                    text: Kstrings.dontHaveAccount,
+                    style: TextStyle(color: Colors.black),
+                    children: [
+                      TextSpan(
+                        text: Kstrings.register,
+                        style: TextStyle(color: Colors.blue),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pushNamed(context, '/signup');
+                          },
+                      ),
+                    ],
+                  ))
+                ],
+              ),
             );
           }),
         ),

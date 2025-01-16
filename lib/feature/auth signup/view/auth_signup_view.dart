@@ -60,18 +60,18 @@ class _AuthSignupViewState extends State<AuthSignupView> {
         title: Text(Kstrings.register),
       ),
       body: Center(
-        child: SingleChildScrollView(
-          child: Form(
-            key: formKey,
-            child: Consumer<AuthSignupProvider>(
-                builder: (context, _provider, child) {
-              debugPrint('Signup Provider Called ${_provider.isSignup}');
-              // if (_provider.isSignup == true) {
-              //   debugPrint('Signup Success');
-              //   Navigator.pushNamedAndRemoveUntil(
-              //       context, '/profile', (route) => false);
-              // }
-              return Column(
+        child: Form(
+          key: formKey,
+          child: Consumer<AuthSignupProvider>(
+              builder: (context, _provider, child) {
+            debugPrint('Signup Provider Called ${_provider.isSignup}');
+            // if (_provider.isSignup == true) {
+            //   debugPrint('Signup Success');
+            //   Navigator.pushNamedAndRemoveUntil(
+            //       context, '/profile', (route) => false);
+            // }
+            return SingleChildScrollView(
+              child: Column(
                 children: [
                   Text(Kstrings.email),
                   appTextFields(
@@ -152,9 +152,9 @@ class _AuthSignupViewState extends State<AuthSignupView> {
                     ),
                   ),
                 ],
-              );
-            }),
-          ),
+              ),
+            );
+          }),
         ),
       ),
     );
